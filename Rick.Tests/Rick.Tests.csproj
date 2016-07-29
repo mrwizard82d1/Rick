@@ -54,6 +54,7 @@
     <Compile Include="OhmValueCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BandColorFactoryTests.cs" />
+    <Compile Include="ResistorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
