@@ -35,17 +35,7 @@ namespace Rick
                 return 0;
             }
 
-            if (_bandAColor == BandColor.None)
-            {
-                throw new ResistorException("Significant figure band A not present.");
-            }
-
-            if (_bandAColor == BandColor.Gold || _bandAColor == BandColor.Silver)
-            {
-                throw new ResistorException(
-                    string.Format("Cannot convert a {0} A band to a significant figure.",
-                        _bandAColor.ToString().ToLowerInvariant()));
-            }
+            ValidateSignificantFigureBands();
 
             var significantFigures = 10 * FirstSignificantDigit + SecondSignificantDigit;
 
@@ -59,6 +49,27 @@ namespace Rick
             var value = significantFigures * Multiplier;
 
             return value;
+        }
+
+        private void ValidateSignificantFigureBands()
+        {
+            MustHaveSiignificantFigureBandLabeled(_bandAColor, "A");
+            MustHaveSiignificantFigureBandLabeled(_bandBColor, "B");
+
+            if (_bandAColor == BandColor.Gold || _bandAColor == BandColor.Silver)
+            {
+                throw new ResistorException(
+                    string.Format("Cannot convert a {0} A band to a significant figure.",
+                        _bandAColor.ToString().ToLowerInvariant()));
+            }
+        }
+
+        private static void MustHaveSiignificantFigureBandLabeled(BandColor bandColor, string invalidBand)
+        {
+            if (bandColor == BandColor.None)
+            {
+                throw new ResistorException(string.Format("Significant figure band {0} not present.", invalidBand));
+            }
         }
 
         private long Multiplier

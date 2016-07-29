@@ -68,8 +68,8 @@ namespace Rick.Tests
                       .With.Message.EqualTo(string.Format("Significant figure band {0} not present.", invalidBand)));
         }
 
-        [TestCase(BandColor.Gold, BandColor.None, BandColor.None, BandColor.None, "A")]
-        [TestCase(BandColor.Silver, BandColor.None, BandColor.None, BandColor.None, "A")]
+        [TestCase(BandColor.Gold, BandColor.Gray, BandColor.None, BandColor.None, "A")]
+        [TestCase(BandColor.Silver, BandColor.Black, BandColor.None, BandColor.None, "A")]
         public void Resistance_InvalidSignificantFigure_ThrowsResistorExceptionWithBandAMessage(BandColor bandAColor,
             BandColor bandBColor, BandColor bandCColor, BandColor bandDColor, string invalidBand)
         {
