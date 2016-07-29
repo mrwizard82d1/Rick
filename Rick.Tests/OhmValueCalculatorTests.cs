@@ -1,8 +1,14 @@
 ﻿using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace Rick.Tests
 {
+    /// <summary>
+    /// Defines the unit tests for the <see cref="OhmValueCalculator"/> class.
+    /// </summary>
+    /// <remarks>
+    /// Here are some additional test ideas:
+    /// * Handle `Resistance` returning `double` values.
+    /// </remarks>
     [TestFixture]
     public class OhmValueCalculatorTests
     {

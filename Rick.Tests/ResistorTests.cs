@@ -9,6 +9,8 @@ namespace Rick.Tests
     /// Here are some additional test ideas:
     /// * The Wikipedia article (https://en.wikipedia.org/wiki/Electronic_color_code) described a five-band resistor. 
     ///   Because this is not needed to support the interface `IOhmValueCalculator`, I chose not to implement it.
+    /// * Change `Resistance` to return double. (This allows correct handling of `Gold` and `Silver` bands for the
+    ///   multiplier.
     /// </remarks>
     [TestFixture]
     public class ResistorTests
