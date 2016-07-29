@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BandColor.cs" />
+    <Compile Include="BandColorConversionException.cs" />
     <Compile Include="BandColorFactory.cs" />
     <Compile Include="IOhmValueCalculator.cs" />
     <Compile Include="OhmValueCalculator.cs" />

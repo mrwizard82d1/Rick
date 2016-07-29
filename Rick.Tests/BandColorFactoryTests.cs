@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Rick.Tests
 {
@@ -21,6 +22,21 @@ namespace Rick.Tests
         public void FromText_ValidText_ReturnsExpectedBandColor(string validText, BandColor expectedColor)
         {
             Assert.That(BandColorFactory.FromText(validText), Is.EqualTo(expectedColor));
+        }
+
+        [TestCase("")]
+        [TestCase("\t")]
+        public void FromText_EmptyString_ReturnsBandColorNone(string emptyText)
+        {
+            Assert.That(BandColorFactory.FromText(emptyText), Is.EqualTo(BandColor.None));
+        }
+
+        [TestCase]
+        public void FromText_Null_ThrowsBandColorExceptionWithMessage()
+        {
+            Assert.That(() => BandColorFactory.FromText(null),
+                Throws.InstanceOf<BandColorConversionException>()
+                      .With.Message.EqualTo("Cannot convert `null` value to `BandColor`."));
         }
     }
 }

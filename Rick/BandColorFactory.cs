@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Rick
@@ -38,8 +39,29 @@ namespace Rick
             {"none", BandColor.None}
         };
 
+        /// <summary>
+        /// Converts a <see cref="String"/> to a <see cref="BandColor"/>.
+        /// </summary>
+        /// <param name="colorText">
+        /// The text to convert.
+        /// </param>
+        /// <returns>
+        /// The <see cref="BandColor"/> corresponding to <paramref name="colorText"/>. Empty strings or strings 
+        /// consisting only of whitespace return <see cref="BandColor.None"/>. However, I consider a null value to be 
+        /// an error because it is too easy in .NET to create a <code>null</code> value.
+        /// </returns>
         public static BandColor FromText(string colorText)
         {
+            if (colorText == null)
+            {
+                throw new BandColorConversionException("Cannot convert `null` value to `BandColor`.");
+            }
+
+            if (string.IsNullOrWhiteSpace(colorText))
+            {
+                return BandColor.None;
+            }
+
             return TextBandColorMap[colorText.ToLowerInvariant()];
         }
     }
