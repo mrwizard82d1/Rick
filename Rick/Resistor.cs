@@ -35,24 +35,49 @@ namespace Rick
                 return 0;
             }
 
+            var significantFigures = CalculateSignificantFigures();
+
+            var value = ApplyMultiplier(significantFigures);
+
+            return value;
+        }
+
+        private long ApplyMultiplier(int significantFigures)
+        {
+            ValidateMultiplierBand();
+            var value = significantFigures*Multiplier;
+            return value;
+        }
+
+        private int CalculateSignificantFigures()
+        {
             ValidateSignificantFigureBands();
+            var significantFigures = 10*FirstSignificantDigit + SecondSignificantDigit;
+            return significantFigures;
+        }
 
-            var significantFigures = 10 * FirstSignificantDigit + SecondSignificantDigit;
-
-            if (_bandCColor == BandColor.None)
+        private void ValidateMultiplierBand()
+        {
+            if (HasNoMultiplierBand)
             {
                 throw new ResistorException("No multiplier band found.");
             }
 
-            if (_bandCColor == BandColor.Gold || _bandCColor == BandColor.Silver)
+            if (HasUntranslatableMultiplerBand)
             {
                 throw new ResistorException(string.Format("Unhandled {0} multiplier band.",
                     _bandCColor.ToString().ToLowerInvariant()));
             }
+        }
 
-            var value = significantFigures * Multiplier;
+        private bool HasUntranslatableMultiplerBand
+        {
+            get { return _bandCColor == BandColor.Gold || _bandCColor == BandColor.Silver; }
+        }
 
-            return value;
+        private bool HasNoMultiplierBand
+        {
+            get { return _bandCColor == BandColor.None; }
         }
 
         private void ValidateSignificantFigureBands()

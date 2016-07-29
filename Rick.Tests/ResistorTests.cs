@@ -105,7 +105,8 @@ namespace Rick.Tests
 
         [TestCase(BandColor.Gold)]
         [TestCase(BandColor.Silver)]
-        public void Resistance_NonIntegral_ThrowsResistorExceptionWithMessage(BandColor invalidMultiplierBandColor)
+        public void Resistance_UntranslatableMultiplier_ThrowsResistorExceptionWithMessage(
+            BandColor invalidMultiplierBandColor)
         {
             var sut = new Resistor(BandColor.Gray, BandColor.Violet, invalidMultiplierBandColor, BandColor.None);
 
