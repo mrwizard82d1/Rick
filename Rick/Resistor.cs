@@ -1,5 +1,4 @@
 using System;
-using System.Numerics;
 
 namespace Rick
 {
@@ -31,21 +30,48 @@ namespace Rick
         public int Resistance()
         {
             // Handle a zero-ohm resistor specially.
-            if (_bandAColor == BandColor.Black && _bandBColor == BandColor.None && _bandCColor == BandColor.None)
+            if (IsZeroOhmResistor)
             {
                 return 0;
             }
 
-            var significantDigits = 10 * (int) _bandAColor + (int) _bandBColor;
+            var significantFigures = 10 * FirstSignificantDigit + SecondSignificantDigit;
 
-            // Using the Math library (which uses double precision arithmetic) may not be the most efficient method
-            // to calculate integral powers of 10, but is suffices for this problem.
-            var value = significantDigits * (long) Math.Pow(10, (int) _bandCColor);
-            if (value > int.MaxValue)
+            var value = significantFigures * Multiplier;
+
+            if (ValueTooBigForAnInteger(value))
             {
                 throw new ResistorException(string.Format("Resistance '{0}' too large.", value));
             }
+
             return (int) value;
+        }
+
+        private static bool ValueTooBigForAnInteger(long value)
+        {
+            return value > int.MaxValue;
+        }
+
+        private long Multiplier
+        {
+            // Using the Math library (which uses double precision arithmetic) may not be the most efficient method
+            // to calculate integral powers of 10, but it suffices for this problem.
+            get { return (long) Math.Pow(10, (int) _bandCColor); }
+        }
+
+        private int SecondSignificantDigit
+        {
+            get { return (int) _bandBColor; }
+        }
+
+        private int FirstSignificantDigit
+        {
+            get { return (int) _bandAColor; }
+        }
+
+        private bool IsZeroOhmResistor
+        {
+            get { return _bandAColor == BandColor.Black && _bandBColor == BandColor.None && _bandCColor == BandColor.None; }
         }
     }
 }
