@@ -1,6 +1,6 @@
 ﻿Feature: CalculateResistance
     In order to determine the resistance of a resistor
-    As a young physicist
+    As a QA technician
     I want to be calculate the resistance using the color bands
 
 @ignore
