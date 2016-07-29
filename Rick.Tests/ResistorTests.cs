@@ -56,42 +56,42 @@ namespace Rick.Tests
             Assert.That(sut.Resistance(), Is.EqualTo(expectedValue));
         }
 
-        [TestCase(BandColor.None, BandColor.Gray, BandColor.None, BandColor.None, "A")]
-        [TestCase(BandColor.Brown, BandColor.None, BandColor.None, BandColor.None, "B")]
+        [TestCase(BandColor.None, BandColor.Gray, "A")]
+        [TestCase(BandColor.Brown, BandColor.None, "B")]
         public void Resistance_NoneSignificantFigureBand_ThrowsResistorExceptionWithBandMessage(BandColor bandAColor,
-            BandColor bandBColor, BandColor bandCColor, BandColor bandDColor, string invalidBand)
+            BandColor bandBColor, string invalidBand)
         {
-            var sut = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
+            var sut = new Resistor(bandAColor, bandBColor, BandColor.None, BandColor.None);
 
             Assert.That(() => sut.Resistance(),
                 Throws.InstanceOf<ResistorException>()
                       .With.Message.EqualTo(string.Format("Significant figure band {0} not present.", invalidBand)));
         }
 
-        [TestCase(BandColor.Gold, BandColor.Gray, BandColor.None, BandColor.None, "A")]
-        [TestCase(BandColor.Silver, BandColor.Black, BandColor.None, BandColor.None, "A")]
-        public void Resistance_InvalidBandASignificantFigure_ThrowsResistorExceptionWithBandAMessage(BandColor bandAColor,
-            BandColor bandBColor, BandColor bandCColor, BandColor bandDColor, string invalidBand)
+        [TestCase(BandColor.Gold, BandColor.Gray)]
+        [TestCase(BandColor.Silver, BandColor.Black)]
+        public void Resistance_InvalidBandASignificantFigure_ThrowsResistorExceptionWithBandAMessage(
+            BandColor bandAColor, BandColor bandBColor)
         {
-            var sut = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
+            var sut = new Resistor(bandAColor, bandBColor, BandColor.None, BandColor.None);
 
             Assert.That(() => sut.Resistance(),
                 Throws.InstanceOf<ResistorException>()
-                      .With.Message.EqualTo(string.Format("Cannot convert a {0} {1} band to a significant figure.",
-                          bandAColor.ToString().ToLowerInvariant(), invalidBand)));
+                      .With.Message.EqualTo(string.Format("Cannot convert a {0} A band to a significant figure.",
+                          bandAColor.ToString().ToLowerInvariant())));
         }
 
-        [TestCase(BandColor.Brown, BandColor.Gold, BandColor.None, BandColor.None, "B")]
-        [TestCase(BandColor.Green, BandColor.Silver, BandColor.None, BandColor.None, "B")]
-        public void Resistance_InvalidBandBSignificantFigure_ThrowsResistorExceptionWithBandAMessage(BandColor bandAColor,
-            BandColor bandBColor, BandColor bandCColor, BandColor bandDColor, string invalidBand)
+        [TestCase(BandColor.Brown, BandColor.Gold)]
+        [TestCase(BandColor.Green, BandColor.Silver)]
+        public void Resistance_InvalidBandBSignificantFigure_ThrowsResistorExceptionWithBandAMessage(
+            BandColor bandAColor, BandColor bandBColor)
         {
-            var sut = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
+            var sut = new Resistor(bandAColor, bandBColor, BandColor.None, BandColor.None);
 
             Assert.That(() => sut.Resistance(),
                 Throws.InstanceOf<ResistorException>()
-                      .With.Message.EqualTo(string.Format("Cannot convert a {0} {1} band to a significant figure.",
-                          bandBColor.ToString().ToLowerInvariant(), invalidBand)));
+                      .With.Message.EqualTo(string.Format("Cannot convert a {0} B band to a significant figure.",
+                          bandBColor.ToString().ToLowerInvariant())));
         }
 
         [TestCase]
