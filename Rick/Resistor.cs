@@ -39,11 +39,15 @@ namespace Rick
 
             var significantFigures = 10 * FirstSignificantDigit + SecondSignificantDigit;
 
-            if (_bandCColor == BandColor.Gold)
+            if (_bandCColor == BandColor.None)
             {
-                throw new ResistorException(
-                    string.Format("Non-integral resistance with significant figures '{0}' and multiplier band '{1}'.",
-                        significantFigures, _bandCColor));
+                throw new ResistorException("No multiplier band found.");
+            }
+
+            if (_bandCColor == BandColor.Gold || _bandCColor == BandColor.Silver)
+            {
+                throw new ResistorException(string.Format("Unhandled {0} multiplier band.",
+                    _bandCColor.ToString().ToLowerInvariant()));
             }
 
             var value = significantFigures * Multiplier;

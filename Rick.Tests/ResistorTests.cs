@@ -58,7 +58,7 @@ namespace Rick.Tests
 
         [TestCase(BandColor.None, BandColor.Gray, "A")]
         [TestCase(BandColor.Brown, BandColor.None, "B")]
-        public void Resistance_NoneSignificantFigureBand_ThrowsResistorExceptionWithBandMessage(BandColor bandAColor,
+        public void Resistance_NoSignificantFigureBand_ThrowsResistorExceptionWithBandMessage(BandColor bandAColor,
             BandColor bandBColor, string invalidBand)
         {
             var sut = new Resistor(bandAColor, bandBColor, BandColor.None, BandColor.None);
@@ -95,13 +95,24 @@ namespace Rick.Tests
         }
 
         [TestCase]
-        [Ignore("Not yet implemented.")]
-        public void Resistance_NonIntegral_ThrowsResistorExceptionWithMessage()
+        public void Resistance_NoMultiplierBand_ThrowsResistorExceptionWithBandMessage()
         {
-            var sut = new Resistor(BandColor.Gold, BandColor.Gold, BandColor.Gold, BandColor.None);
+            var sut = new Resistor(BandColor.Gray, BandColor.Gray, BandColor.None, BandColor.None);
 
             Assert.That(() => sut.Resistance(),
-                Throws.InstanceOf<ResistorException>().With.Message.EqualTo("Non-integral resistance '5.5'."));
+                Throws.InstanceOf<ResistorException>().With.Message.EqualTo("No multiplier band found."));
+        }
+
+        [TestCase(BandColor.Gold)]
+        [TestCase(BandColor.Silver)]
+        public void Resistance_NonIntegral_ThrowsResistorExceptionWithMessage(BandColor invalidMultiplierBandColor)
+        {
+            var sut = new Resistor(BandColor.Gray, BandColor.Violet, invalidMultiplierBandColor, BandColor.None);
+
+            Assert.That(() => sut.Resistance(),
+                Throws.InstanceOf<ResistorException>()
+                      .With.Message.EqualTo(string.Format("Unhandled {0} multiplier band.",
+                          invalidMultiplierBandColor.ToString().ToLowerInvariant())));
         }
 
     }
