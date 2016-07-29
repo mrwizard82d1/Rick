@@ -27,7 +27,7 @@ namespace Rick
             _bandDColor = bandDColor;
         }
 
-        public int Resistance()
+        public long Resistance()
         {
             // Handle a zero-ohm resistor specially.
             if (IsZeroOhmResistor)
@@ -39,17 +39,7 @@ namespace Rick
 
             var value = significantFigures * Multiplier;
 
-            if (ValueTooBigForAnInteger(value))
-            {
-                throw new ResistorException(string.Format("Resistance '{0}' too large.", value));
-            }
-
-            return (int) value;
-        }
-
-        private static bool ValueTooBigForAnInteger(long value)
-        {
-            return value > int.MaxValue;
+            return value;
         }
 
         private long Multiplier

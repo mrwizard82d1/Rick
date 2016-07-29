@@ -20,7 +20,19 @@ namespace Rick
             var bandDColor = BandColorFactory.FromText(bandDColorText);
 
             var resistor = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
-            return resistor.Resistance();
+            var resistance = resistor.Resistance();
+            if (ValueTooBigForAnInteger(resistance))
+            {
+                throw new ResistorException(string.Format("Resistance '{0}' too large.", resistance));
+            }
+
+            return (int) resistance;
         }
+
+        private static bool ValueTooBigForAnInteger(long value)
+        {
+            return value > int.MaxValue;
+        }
+
     }
 }

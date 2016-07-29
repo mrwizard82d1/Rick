@@ -38,21 +38,13 @@ namespace Rick.Tests
         [TestCase(BandColor.Gray, BandColor.White, BandColor.Violet, BandColor.Gold, 890000000)]
         [TestCase(BandColor.Black, BandColor.Gray, BandColor.Gray, BandColor.Gold, 800000000)]
         [TestCase(BandColor.Black, BandColor.Gray, BandColor.Gray, BandColor.Gold, 800000000)]
+        [TestCase(BandColor.Red, BandColor.White, BandColor.White, BandColor.None, 29000000000L)]
         public void Resistance_SpecifiedBands_ReturnsExpectedValue(BandColor bandAColor, BandColor bandBColor,
-            BandColor bandCColor, BandColor bandDColor, int expectedValue)
+            BandColor bandCColor, BandColor bandDColor, long expectedValue)
         {
             var sut = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
 
             Assert.That(sut.Resistance(), Is.EqualTo(expectedValue));
-        }
-
-        [TestCase]
-        public void Resistance_TooLarge_ThrowsResistorExceptionWithMessage()
-        {
-            var sut = new Resistor(BandColor.Red, BandColor.White, BandColor.White, BandColor.None);
-
-            Assert.That(() => sut.Resistance(),
-                Throws.InstanceOf<ResistorException>().With.Message.EqualTo("Resistance '29000000000' too large."));
         }
     }
 }
