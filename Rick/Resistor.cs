@@ -53,18 +53,25 @@ namespace Rick
 
         private void ValidateSignificantFigureBands()
         {
-            MustHaveSiignificantFigureBandLabeled(_bandAColor, "A");
-            MustHaveSiignificantFigureBandLabeled(_bandBColor, "B");
+            MustHaveSignificantFigureBandLabeled(_bandAColor, "A");
+            MustHaveSignificantFigureBandLabeled(_bandBColor, "B");
 
-            if (_bandAColor == BandColor.Gold || _bandAColor == BandColor.Silver)
+            MustHaveTranslatableSignificantFigureBand(_bandAColor, "A");
+            MustHaveTranslatableSignificantFigureBand(_bandBColor, "B");
+        }
+
+        private static void MustHaveTranslatableSignificantFigureBand(BandColor bandColor, string invalidBand)
+        {
+            if (bandColor == BandColor.Gold || bandColor == BandColor.Silver)
             {
                 throw new ResistorException(
-                    string.Format("Cannot convert a {0} A band to a significant figure.",
-                        _bandAColor.ToString().ToLowerInvariant()));
+                    string.Format("Cannot convert a {0} {1} band to a significant figure.",
+                        bandColor.ToString().ToLowerInvariant(), invalidBand));
             }
         }
 
-        private static void MustHaveSiignificantFigureBandLabeled(BandColor bandColor, string invalidBand)
+        // ReSharper disable once UnusedParameter.Local
+        private static void MustHaveSignificantFigureBandLabeled(BandColor bandColor, string invalidBand)
         {
             if (bandColor == BandColor.None)
             {
