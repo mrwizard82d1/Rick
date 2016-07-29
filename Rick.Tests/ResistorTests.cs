@@ -39,14 +39,56 @@ namespace Rick.Tests
         [TestCase(BandColor.Blue, BandColor.Violet, BandColor.Blue, BandColor.Gold, 67000000)]
         [TestCase(BandColor.Gray, BandColor.White, BandColor.Violet, BandColor.Gold, 890000000)]
         [TestCase(BandColor.Black, BandColor.Gray, BandColor.Gray, BandColor.Gold, 800000000)]
-        [TestCase(BandColor.Black, BandColor.Gray, BandColor.Gray, BandColor.Gold, 800000000)]
+        public void Resistance_SpecifiedBands_ReturnsExpectedIntegralValue(BandColor bandAColor, BandColor bandBColor,
+            BandColor bandCColor, BandColor bandDColor, int expectedValue)
+        {
+            var sut = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
+
+            Assert.That(sut.Resistance(), Is.EqualTo(expectedValue));
+        }
+
         [TestCase(BandColor.Red, BandColor.White, BandColor.White, BandColor.None, 29000000000L)]
-        public void Resistance_SpecifiedBands_ReturnsExpectedValue(BandColor bandAColor, BandColor bandBColor,
+        public void Resistance_SpecifiedBands_ReturnsExpectedLongValue(BandColor bandAColor, BandColor bandBColor,
             BandColor bandCColor, BandColor bandDColor, long expectedValue)
         {
             var sut = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
 
             Assert.That(sut.Resistance(), Is.EqualTo(expectedValue));
         }
+
+        [TestCase(BandColor.None, BandColor.Gray, BandColor.None, BandColor.None, "A")]
+        [TestCase(BandColor.Brown, BandColor.None, BandColor.None, BandColor.None, "B")]
+        public void Resistance_NoneSignificantFigureBand_ThrowsResistorExceptionWithBandMessage(BandColor bandAColor,
+            BandColor bandBColor, BandColor bandCColor, BandColor bandDColor, string invalidBand)
+        {
+            var sut = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
+
+            Assert.That(() => sut.Resistance(),
+                Throws.InstanceOf<ResistorException>()
+                      .With.Message.EqualTo(string.Format("Significant figure band {0} not present.", invalidBand)));
+        }
+
+        [TestCase(BandColor.Gold, BandColor.None, BandColor.None, BandColor.None, "A")]
+        [TestCase(BandColor.Silver, BandColor.None, BandColor.None, BandColor.None, "A")]
+        public void Resistance_InvalidSignificantFigure_ThrowsResistorExceptionWithBandAMessage(BandColor bandAColor,
+            BandColor bandBColor, BandColor bandCColor, BandColor bandDColor, string invalidBand)
+        {
+            var sut = new Resistor(bandAColor, bandBColor, bandCColor, bandDColor);
+
+            Assert.That(() => sut.Resistance(),
+                Throws.InstanceOf<ResistorException>()
+                      .With.Message.EqualTo(string.Format("Cannot convert a {0} {1} band to a significant figure.",
+                          bandAColor.ToString().ToLowerInvariant(), invalidBand)));
+        }
+
+        [TestCase]
+        public void Resistance_NonIntegral_ThrowsResistorExceptionWithMessage()
+        {
+            var sut = new Resistor(BandColor.Gold, BandColor.Gold, BandColor.Gold, BandColor.None);
+
+            Assert.That(() => sut.Resistance(),
+                Throws.InstanceOf<ResistorException>().With.Message.EqualTo("Non-integral resistance '5.5'."));
+        }
+
     }
 }

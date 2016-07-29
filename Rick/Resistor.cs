@@ -35,7 +35,26 @@ namespace Rick
                 return 0;
             }
 
+            if (_bandAColor == BandColor.None)
+            {
+                throw new ResistorException("Significant figure band A not present.");
+            }
+
+            if (_bandAColor == BandColor.Gold || _bandAColor == BandColor.Silver)
+            {
+                throw new ResistorException(
+                    string.Format("Cannot convert a {0} A band to a significant figure.",
+                        _bandAColor.ToString().ToLowerInvariant()));
+            }
+
             var significantFigures = 10 * FirstSignificantDigit + SecondSignificantDigit;
+
+            if (_bandCColor == BandColor.Gold)
+            {
+                throw new ResistorException(
+                    string.Format("Non-integral resistance with significant figures '{0}' and multiplier band '{1}'.",
+                        significantFigures, _bandCColor));
+            }
 
             var value = significantFigures * Multiplier;
 
@@ -46,7 +65,10 @@ namespace Rick
         {
             // Using the Math library (which uses double precision arithmetic) may not be the most efficient method
             // to calculate integral powers of 10, but it suffices for this problem.
-            get { return (long) Math.Pow(10, (int) _bandCColor); }
+            get
+            {
+                return (long) Math.Pow(10, (int) _bandCColor);
+            }
         }
 
         private int SecondSignificantDigit

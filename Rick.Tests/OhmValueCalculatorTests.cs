@@ -5,10 +5,6 @@ namespace Rick.Tests
     /// <summary>
     /// Defines the unit tests for the <see cref="OhmValueCalculator"/> class.
     /// </summary>
-    /// <remarks>
-    /// Here are some additional test ideas:
-    /// * Handle `Resistance` returning `double` values.
-    /// </remarks>
     [TestFixture]
     public class OhmValueCalculatorTests
     {
@@ -31,5 +27,6 @@ namespace Rick.Tests
             Assert.That(() => sut.CalculateOhmValue("red", "White", "whitE", string.Empty),
                 Throws.InstanceOf<ResistorException>().With.Message.EqualTo("Resistance '29000000000' too large."));
         }
+
     }
 }
