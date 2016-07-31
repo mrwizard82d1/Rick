@@ -65,9 +65,18 @@ namespace RickWeb.Models
             get { return new SelectList(Enum.GetValues(typeof(BandColor))); }
         }
 
+        public int Resistance
+        {
+            get
+            {
+                var calculator = new OhmValueCalculator();
+                return calculator.CalculateOhmValue(BandAColor, BandBColor, BandCColor, BandDColor);
+            }
+        }
+
         public string ResistanceText
         {
-            get { return "0 ohms"; }
+            get { return string.Format("{0} {1}", Resistance, (Resistance != 1 ? "ohms" : "ohm")); }
         }
     }
 }
