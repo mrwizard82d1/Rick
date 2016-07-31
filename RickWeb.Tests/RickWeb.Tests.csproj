@@ -63,6 +63,10 @@
       <Project>{cab6306d-6fab-48cc-9ab2-ce17542ca05d}</Project>
       <Name>RickWeb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Rick\Rick.csproj">
+      <Project>{FF23E15F-AB19-4FF3-B0B0-05D6387D601C}</Project>
+      <Name>Rick</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

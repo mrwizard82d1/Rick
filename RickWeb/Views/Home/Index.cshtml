@@ -1,13 +1,33 @@
-﻿@{
+﻿@model RickWeb.Models.ResistorViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
+            <div id="calculator">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Band A</th>
+                        <th>Band B</th>
+                        <th>Band C</th>
+                        <th>Band D</th>
+                        <th>Resistance</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>@Html.DropDownListFor(m => m.BandAColor, Model.BandAColors)</td>
+                        <td>@Html.DropDownListFor(m => m.BandBColor, Model.BandBColors)</td>
+                        <td>@Html.DropDownListFor(m => m.BandCColor, Model.BandCColors)</td>
+                        <td>@Html.DropDownListFor(m => m.BandDColor, Model.BandDColors)</td>
+                        <td>@Html.Label(Model.ResistanceText)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 }
