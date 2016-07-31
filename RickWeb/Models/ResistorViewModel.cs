@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Rick;
 
@@ -21,17 +22,42 @@ namespace RickWeb.Models
 
         public SelectList BandAColors
         {
-            get { return new SelectList(Enum.GetValues(typeof(BandColor))); }
+            get
+            {
+                return
+                    new SelectList(
+                        Enum.GetValues(typeof(BandColor))
+                            .Cast<BandColor>()
+                            .Where(bc => bc != BandColor.Gold)
+                            .Where(bc => bc != BandColor.Silver)
+                            .Where(bc => bc != BandColor.None));
+            }
         }
 
         public SelectList BandBColors
         {
-            get { return new SelectList(Enum.GetValues(typeof(BandColor))); }
+            get
+            {
+                return
+                    new SelectList(
+                        Enum.GetValues(typeof(BandColor))
+                            .Cast<BandColor>()
+                            .Where(bc => bc != BandColor.Gold)
+                            .Where(bc => bc != BandColor.Silver)
+                            .Where(bc => bc != BandColor.None));
+            }
         }
 
         public SelectList BandCColors
         {
-            get { return new SelectList(Enum.GetValues(typeof(BandColor))); }
+            get
+            {
+                return
+                    new SelectList(
+                        Enum.GetValues(typeof(BandColor))
+                            .Cast<BandColor>()
+                            .Where(bc => bc != BandColor.None));
+            }
         }
 
         public SelectList BandDColors
