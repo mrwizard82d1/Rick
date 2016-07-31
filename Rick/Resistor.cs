@@ -5,6 +5,10 @@ namespace Rick
     /// <summary>
     /// Models a discrete resistor.
     /// </summary>
+    /// <raises>
+    /// <see cref="ResistorException"/> raised when the <see cref="Resistance"/> property cannot be represented by 
+    /// an instance of <see cref="System.Int64"/> or when one supplies no multiplier.
+    /// </raises>
     /// <remarks>
     /// For simply calculating the resistance, this class is overkill. However, I envision that this application 
     /// eventually supports a QA technician being able to determine the nominal resistance and tolerance of a discrete

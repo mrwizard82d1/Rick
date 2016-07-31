@@ -3,6 +3,9 @@ namespace Rick
     /// <summary>
     /// Satisfies the needs of the web application UI by implementing <see cref="IOhmValueCalculator"/>.
     /// </summary>
+    /// <raises>
+    /// <see cref="ResistorException"/> when values are too large to be represented by <see cref="System.Int32"/>.
+    /// </raises>
     /// <remarks>
     /// <para>
     /// This class plays the role of Facade in the Facade design pattern. It simplifies the domain interface so

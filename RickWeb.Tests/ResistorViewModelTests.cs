@@ -32,9 +32,9 @@ namespace RickWeb.Tests
         {
             var sut = new ResistorViewModel();
 
-            Assert.That(sut.BandCColors.Select(bac => bac.Text),
+            Assert.That(sut.BandCColors.Select(bac => bac.Text).ToList(),
                 Is.EqualTo(new[]
-                {"Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet", "Gray", "White", "Gold", "Silver"}));
+                {"Black", "Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Violet"}));
         }
 
         [TestCase("Black", "Black", "Black", "ohms")]

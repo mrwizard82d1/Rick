@@ -56,6 +56,16 @@ namespace RickWeb.Models
                     new SelectList(
                         Enum.GetValues(typeof(BandColor))
                             .Cast<BandColor>()
+                            // I filter out Gray, White, Gold and Silver because these multipliers may generate
+                            // resistance values that are non-integral. Gray and White may generate values that require 
+                            // a long to be represented correctly. Additionally, Gold and Silver may generate floating
+                            // point values. The implementation of `IOhmValueCalculator`, `OhmValueCalculator`, 
+                            // "handles" these situations by raising exceptions. Filtering these values out from the
+                            // UI prevents the user from encountering them.
+                            .Where(bc => bc != BandColor.Gray)
+                            .Where(bc => bc != BandColor.White)
+                            .Where(bc => bc != BandColor.Gold)
+                            .Where(bc => bc != BandColor.Silver)
                             .Where(bc => bc != BandColor.None));
             }
         }
