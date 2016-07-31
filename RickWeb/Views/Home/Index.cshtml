@@ -7,26 +7,34 @@
     <section class="featured">
         <div class="content-wrapper">
             <div id="calculator">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Band A</th>
-                        <th>Band B</th>
-                        <th>Band C</th>
-                        <th>Band D</th>
-                        <th>Resistance</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>@Html.DropDownListFor(m => m.BandAColor, Model.BandAColors)</td>
-                        <td>@Html.DropDownListFor(m => m.BandBColor, Model.BandBColors)</td>
-                        <td>@Html.DropDownListFor(m => m.BandCColor, Model.BandCColors)</td>
-                        <td>@Html.DropDownListFor(m => m.BandDColor, Model.BandDColors)</td>
-                        <td>@Html.Label(Model.ResistanceText)</td>
-                    </tr>
-                    </tbody>
-                </table>
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                {
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Band A</th>
+                                <th>Band B</th>
+                                <th>Band C</th>
+                                <th>Band D</th>
+                                <th>Resistance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@Html.DropDownListFor(m => m.BandAColor, Model.BandAColors)</td>
+                                <td>@Html.DropDownListFor(m => m.BandBColor, Model.BandBColors)</td>
+                                <td>@Html.DropDownListFor(m => m.BandCColor, Model.BandCColors)</td>
+                                <td>@Html.DropDownListFor(m => m.BandDColor, Model.BandDColors)</td>
+                                <td>@Html.Label(Model.ResistanceText)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>
+                        @*I'm really, really tempted to call this button "Assimilate." :)*@
+                        <input type="submit" value="Calculate" />
+                    </p>
+                }
             </div>
         </div>
     </section>

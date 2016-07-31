@@ -18,6 +18,16 @@ namespace RickWeb.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Index(FormCollection formValues)
+        {
+            var updatedModel = new ResistorViewModel();
+
+            UpdateModel(updatedModel, formValues);
+
+            return View(updatedModel);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
