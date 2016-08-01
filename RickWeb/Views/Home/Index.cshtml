@@ -7,7 +7,9 @@
     <section class="featured">
         <div class="content-wrapper">
             <div id="calculator">
-                @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                @using (Ajax.BeginForm("Resistance", "Home", 
+                    new AjaxOptions {HttpMethod = "GET", InsertionMode = InsertionMode.Replace, 
+                        LoadingElementId = "ajax-loader", UpdateTargetId = "resistance"}))
                 {
                     <table>
                         <thead>
@@ -25,7 +27,7 @@
                                 <td>@Html.DropDownListFor(m => m.BandBColor, Model.BandBColors)</td>
                                 <td>@Html.DropDownListFor(m => m.BandCColor, Model.BandCColors)</td>
                                 <td>@Html.DropDownListFor(m => m.BandDColor, Model.BandDColors)</td>
-                                <td>@Html.Label(Model.ResistanceText)</td>
+                                @Html.Partial("_Resistance")
                             </tr>
                         </tbody>
                     </table>

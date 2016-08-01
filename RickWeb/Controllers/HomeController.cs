@@ -9,23 +9,15 @@ namespace RickWeb.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(ResistorViewModel model = null)
+        public ActionResult Index()
         {
-            if (model == null)
-            {
-                model = new ResistorViewModel();
-            }
+            var model = new ResistorViewModel();
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult Index(FormCollection formValues)
+        public ActionResult Resistance(ResistorViewModel model)
         {
-            var updatedModel = new ResistorViewModel();
-
-            UpdateModel(updatedModel, formValues);
-
-            return View(updatedModel);
+            return PartialView("_Resistance", model);
         }
 
         public ActionResult About()
