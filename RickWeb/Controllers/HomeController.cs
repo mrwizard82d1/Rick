@@ -29,9 +29,9 @@ namespace RickWeb.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Wait for the 24th century.";
 
             return View();
         }
-    }
+    }   
 }
