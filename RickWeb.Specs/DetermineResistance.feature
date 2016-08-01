@@ -20,12 +20,12 @@ Scenario: Determine resistance of a resistor with a tolerance
         |        4 | White  | Gray   | Green  | Green  |
         |        5 | Brown  | Orange | Red    | Blue   |
     Then I see the resistance
-        | Resistor | Nominal Resistance | Tolerance |
-        |        1 | 4700 ohms          |        5% |
-        |        2 | 62 ohms            |       10% |
-        |        3 | 950 Mohms          |        1% |
-        |        4 | 9.8 Mohms          |      0.5% |
-        |        5 | 1.3 kohms          |     0.25% |
+        | Resistor | Nominal Resistance |
+        |        1 | 4700 ohms          |
+        |        2 | 62 ohms            |
+        |        3 | 950000000 ohms     |
+        |        4 | 9800000 ohms       |
+        |        5 | 1300 ohms          |
 
 @ignore
 Scenario: Determine resistance of a resistor with no tolerance
